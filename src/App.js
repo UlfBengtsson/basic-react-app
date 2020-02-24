@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import MyHeader from "./Components/MyHeader";
 import MyFooter from "./Components/MyFooter";
 import MyMainContent from "./Components/MyMainContent";
+import MyNewLang from "./Components/MyNewLang";
 
 class App extends Component {
   state = {
@@ -15,7 +16,6 @@ class App extends Component {
     const value = event.target.value;
 
     this.setState({ newLang: value });
-
   }
   */
   handleChange = event => {
@@ -27,12 +27,11 @@ class App extends Component {
   }
 
   handleSubmit = () => {
-    
     const newCodeLang = this.state.codeLang;
 
     newCodeLang.push(this.state.newLang);
 
-    this.setState({codeLang: newCodeLang, newLang: ""});
+    this.setState({codeLang: newCodeLang, newLang: ""});// also reset the newLang state so its ready for new input
   }
 
   render() {
@@ -42,10 +41,9 @@ class App extends Component {
 
         <MyMainContent textList={this.state.codeLang} />
 
-        <div>
-          <input name="newLang" type="text" value={this.state.newLang} onChange={this.handleChange} />
-          <button onClick={this.handleSubmit}>Save</button>
-        </div>
+        <MyNewLang newLang={this.state.newLang} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+
+        {/* <MyNewLang newLang={this.state.newLang} handleChange={this.handleChange} handleSubmit={this.handleSubmit} /> */}
 
         <MyFooter />
       </Fragment>
