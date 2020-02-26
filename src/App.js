@@ -10,7 +10,9 @@ class App extends Component {
     codeLang: ["C#", "Java", "Basic", "C++", "Assembler"],
     newLang: "",
     weatherForecasts: [],
-    hasFetched: false
+    hasFetched: false,
+    cars: [],
+    carsFetched: false
   };
 
   componentDidMount()
@@ -18,6 +20,10 @@ class App extends Component {
     fetch('https://192.168.1.131:5001/WeatherForecast')//Request part
         .then(response => response.json())             //Response part
         .then(response => this.setState({ weatherForecasts: response, hasFetched: true }));
+
+        fetch('cars.json')//Request part
+        .then(response => response.json())             //Response part
+        .then(response => this.setState({ cars: response.carList, carsFetched: true }));
   }
   
   /*
