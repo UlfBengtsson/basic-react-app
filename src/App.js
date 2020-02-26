@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { v4 as uuidv4 } from 'uuid';  //npm install uuid
 import MyHeader from "./Components/MyHeader";
 import MyFooter from "./Components/MyFooter";
 import MyMainContent from "./Components/MyMainContent";
@@ -48,6 +49,10 @@ class App extends Component {
     newCodeLang.push(this.state.newLang);
 
     this.setState({codeLang: newCodeLang, newLang: ""});// also reset the newLang state so its ready for new input
+  }
+
+  newUUID = () => { //A way to generate the same type of id as the cars in the cars.json file have.
+    return uuidv4();
   }
 
   render() {
