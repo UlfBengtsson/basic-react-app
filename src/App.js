@@ -3,13 +3,23 @@ import MyHeader from "./Components/MyHeader";
 import MyFooter from "./Components/MyFooter";
 import MyMainContent from "./Components/MyMainContent";
 import MyNewLang from "./Components/MyNewLang";
+import MyWeather from "./Components/MyWeather";
 
 class App extends Component {
   state = {
     codeLang: ["C#", "Java", "Basic", "C++", "Assembler"],
-    newLang: ""
+    newLang: "",
+    weatherForecasts: [],
+    hasFetched: false
   };
 
+  componentDidMount()
+  {
+    fetch('https://192.168.1.131:5001/WeatherForecast')//Request part
+        .then(response => response.json())             //Response part
+        .then(response => this.setState({ weatherForecasts: response, hasFetched: true }));
+  }
+  
   /*
   handleNewLang = event => {
     console.log(event.target.value);
@@ -35,9 +45,19 @@ class App extends Component {
   }
 
   render() {
+
+    let weather = "loading...";
+    
+    if(this.state.hasFetched)
+    {
+      weather = <MyWeather weatherList={this.state.weatherForecasts} />;
+    }
+
     return (
       <Fragment>
         <MyHeader />
+
+        {weather}
 
         <MyMainContent textList={this.state.codeLang} />
 
